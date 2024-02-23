@@ -1,17 +1,15 @@
 import React, { useState } from "react";
+import WeatherCard from "./WeatherCard"; 
 import {
   Typography,
   Button,
   TextField,
   Stack,
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
+  Box, 
 } from "@mui/material";
 
 function Home() {
+
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
 
@@ -26,6 +24,7 @@ function Home() {
       if (response.ok) {
         setWeather({
           description: data.weather[0].description,
+          image: data.weather[0].main,
           temperature: data.main.temp,
           city: data.name,
         });
@@ -45,7 +44,7 @@ function Home() {
 
   return (
     <Stack spacing={4}>
-      <Typography gutterBottom variant="h4" component="div">
+      <Typography gutterBottom variant="h4" component="div" color='primary'>
         Weather App
       </Typography>
       <Box spacing={2}>
@@ -54,7 +53,7 @@ function Home() {
           size="small"
           required
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={(event) => setCity(event.target.value)}
         ></TextField>
       </Box>
       <Box>
@@ -62,55 +61,10 @@ function Home() {
           Search
         </Button>
       </Box>
-      {weather && (
-        <Grid container direction="column" alignItems="center" justify="center">
-          <Box width="500px" p={4}>
-            <Card elevation={4}>
-              <CardMedia
-                component="img"
-                height="175"
-                image="https://source.unsplash.com/random"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {weather.city}
-                </Typography>
-                <Typography variant="body1">{weather.description}</Typography>
-                <Typography variant="body1">
-                  {weather.temperature} °F
-                </Typography>
-              </CardContent>
-            </Card>
-          </Box>
-        </Grid>
-      )}
+      {weather && <WeatherCard weather={weather} />}
     </Stack>
   );
 }
 
 export default Home;
 
-// <Box width="500px" >
-//   <Card elevation={4}>
-//     <CardMedia
-//       component="img"
-//       height="140"
-//       image="https://source.unsplash.com/random"
-//     />
-//     <CardContent>
-//       <Typography gutterBottom variant="h5" component="div">
-//         {weather.city}
-//       </Typography>
-//       <Typography variant="body2">{weather.description}</Typography>
-//       <Typography variant="body2">{weather.temperature} °F</Typography>
-//     </CardContent>
-//   </Card>
-// </Box>
-
-// {weather && (
-//   <Typography variant="h6">
-//     <p>City: {weather.city}</p>
-//     <p>Description: {weather.description}</p>
-//     <p>Temperature: {weather.temperature} °F</p>
-//   </Typography>
-// )}
