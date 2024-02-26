@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; 
 import {
   Typography,
   Card,
@@ -6,7 +7,11 @@ import {
   CardMedia,
   Grid,
   Box,
+  Tooltip, 
+  IconButton,
 } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+// import ClearIcon from '@mui/icons-material/Clear';
 import clear from "../images/clear.jpg";
 import clouds from "../images/clouds.jpg";
 import fog from "../images/fog.jpg";
@@ -50,6 +55,9 @@ function WeatherCard({ weather }) {
       image = defaultImg;
   }
 
+    const navigate = useNavigate();
+    
+
   return (
     <Grid container direction="column" alignItems="center" justify="center">
       <Box width="450px" p={4}>
@@ -62,6 +70,11 @@ function WeatherCard({ weather }) {
             <Typography variant="body1">{weather.description}</Typography>
             <Typography variant="body1">{weather.temperature} °F</Typography>
           </CardContent>
+          <Tooltip title='delete'placement='right' arrow>
+            <IconButton onClick={() => navigate(0)}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
         </Card>
       </Box>
     </Grid>
