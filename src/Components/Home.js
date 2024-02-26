@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import WeatherCard from "./WeatherCard"; 
-import {
-  Typography,
-  Button,
-  TextField,
-  Stack,
-  Box, 
-} from "@mui/material";
+import WeatherCard from "./WeatherCard";
+import { Typography, Button, TextField, Stack, Box } from "@mui/material";
+import ErrorAlert from "./ErrorAlert";
 
 function Home() {
-
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
+  const [weatherError, setWeatherError] = useState(null);
 
   const fetchWeather = async () => {
     try {
@@ -25,11 +20,12 @@ function Home() {
         setWeather({
           description: data.weather[0].description,
           image: data.weather[0].main,
-          temperature: data.main.temp,
+          temperature: Math.trunc(data.main.temp),
           city: data.name,
         });
       } else {
         console.error("Error fetching weather:", data.message);
+        setWeatherError(data.message);
       }
     } catch (error) {
       console.error("Error fetching weather:", error);
@@ -44,7 +40,7 @@ function Home() {
 
   return (
     <Stack spacing={4}>
-      <Typography gutterBottom variant="h4" component="div" color='primary'>
+      <Typography gutterBottom variant="h4" component="div" color="primary">
         Weather App
       </Typography>
       <Box spacing={2}>
@@ -54,6 +50,7 @@ function Home() {
           required
           value={city}
           onChange={(event) => setCity(event.target.value)}
+          onKeyDown={(event) => (event.key == "Enter" ? handleSearch() : null)}
         ></TextField>
       </Box>
       <Box>
@@ -62,9 +59,9 @@ function Home() {
         </Button>
       </Box>
       {weather && <WeatherCard weather={weather} />}
+      <ErrorAlert error={weatherError} />
     </Stack>
   );
 }
 
 export default Home;
-

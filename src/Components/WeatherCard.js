@@ -10,8 +10,8 @@ import {
   Tooltip, 
   IconButton,
 } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-// import ClearIcon from '@mui/icons-material/Clear';
+// import DeleteIcon from '@mui/icons-material/Delete';
+import ClearIcon from '@mui/icons-material/Clear';
 import clear from "../images/clear.jpg";
 import clouds from "../images/clouds.jpg";
 import fog from "../images/fog.jpg";
@@ -60,9 +60,18 @@ function WeatherCard({ weather }) {
 
   return (
     <Grid container direction="column" alignItems="center" justify="center">
-      <Box width="450px" p={4}>
+      <Box width="400px" p={4}>
         <Card elevation={4}>
-          <CardMedia component="img" height="175" image={image} />
+
+        <Grid container direction="row-reverse" >
+        <Tooltip title='delete'placement='right' arrow>
+            <IconButton onClick={() => navigate(0)} size="small">
+              <ClearIcon />
+            </IconButton>
+          </Tooltip>
+          </Grid>  
+
+          <CardMedia component="img" height="180" image={image} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {weather.city}
@@ -70,11 +79,7 @@ function WeatherCard({ weather }) {
             <Typography variant="body1">{weather.description}</Typography>
             <Typography variant="body1">{weather.temperature} °F</Typography>
           </CardContent>
-          <Tooltip title='delete'placement='right' arrow>
-            <IconButton onClick={() => navigate(0)}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+         
         </Card>
       </Box>
     </Grid>
