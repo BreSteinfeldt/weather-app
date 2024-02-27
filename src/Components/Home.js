@@ -39,7 +39,7 @@ function Home() {
   };
 
   return (
-    <Stack spacing={4}>
+    <Stack spacing={4} sx={{mt: 7}}>
       <Typography gutterBottom variant="h4" component="div" color="primary">
         Weather App
       </Typography>
