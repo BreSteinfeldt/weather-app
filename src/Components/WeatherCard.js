@@ -60,9 +60,9 @@ function WeatherCard({ weather }) {
 
   return (
     <Grid container direction="column" alignItems="center" justify="center">
-      <Box width="400px" p={4}>
+      <Box p={2}  width='300px'>
+      {/* width="400px" xs={2} p={4}*/}
         <Card elevation={4}>
-
         <Grid container direction="row-reverse" >
         <Tooltip title='delete'placement='right' arrow>
             <IconButton onClick={() => navigate(0)} size="small">
@@ -70,7 +70,6 @@ function WeatherCard({ weather }) {
             </IconButton>
           </Tooltip>
           </Grid>  
-
           <CardMedia component="img" height="180" image={image} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -79,7 +78,6 @@ function WeatherCard({ weather }) {
             <Typography variant="body1">{weather.description}</Typography>
             <Typography variant="body1">{weather.temperature} °F</Typography>
           </CardContent>
-         
         </Card>
       </Box>
     </Grid>
